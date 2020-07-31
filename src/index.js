@@ -7,7 +7,7 @@ import App from './App';
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <App increment={1} />
     </React.StrictMode>,
     document.getElementById('root')
 );
