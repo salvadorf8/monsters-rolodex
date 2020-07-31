@@ -6,14 +6,25 @@ import { CardList } from './components/card-list/card-list.component';
 import { SearchBox } from './components/search-box/search-box.component';
 
 class App extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             monsters: [],
-            searchField: ''
+            searchField: '',
+            myNumber: 0
         };
     }
+
+    handleClick = (props) => {
+        // use this syntax when there is calculation happening in a setState as shown below
+        this.setState(
+            (prevState, prevProps) => {
+                return { myNumber: prevState.myNumber + prevProps.increment };
+            },
+            () => console.log(this.state.myNumber)
+        );
+    };
 
     handleChange = (e) => {
         this.setState({ searchField: e.target.value }, () => console.log(this.state.searchField));
@@ -32,7 +43,8 @@ class App extends React.Component {
         return (
             <div className='App'>
                 <h1>Monsters</h1>
-                <SearchBox placeholder='search monsters' handleChange={this.handleChange} />
+                <SearchBox placeholder='search monsters' value={this.state.searchField} handleChange={this.handleChange} />
+                <button onClick={this.handleClick}>increment - {this.state.myNumber}</button>
                 <CardList monsters={filteredMonsters} />
             </div>
         );
